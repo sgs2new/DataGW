@@ -3,7 +3,7 @@
   "symbol": "SI=F",
   "name": "Silver",
   "source": "Yahoo Finance",
-  "fetched_at_utc": "2026-08-08T21:29:49.274564+00:00",
+  "fetched_at_utc": "2026-08-08T21:56:27.520239+00:00",
   "intervals": {
     "1d": {
       "interval": "1d",

@@ -3,7 +3,7 @@
   "symbol": "^NDX",
   "name": "Nasdaq 100",
   "source": "Yahoo Finance",
-  "fetched_at_utc": "2026-08-08T21:29:50.187724+00:00",
+  "fetched_at_utc": "2026-08-08T21:56:28.445563+00:00",
   "intervals": {
     "1d": {
       "interval": "1d",
