@@ -19,7 +19,7 @@ INTERVALS = {
     },
     "1mo": {
         "interval": "1mo",
-        "range": "10y",
+        "range": "max",
     },
 }
 
