@@ -78,16 +78,102 @@ def fetch_yahoo_data(symbol, interval):
 
 
 # ============================================================
-# Extract OHLC candles
+# Candle validation
+# ============================================================
+
+def validate_candle(candle):
+    issues = []
+
+    timestamp = candle.get("timestamp")
+    datetime_utc = candle.get("datetime_utc")
+
+    if timestamp is None:
+        issues.append({
+            "field": "timestamp",
+            "reason": "missing"
+        })
+
+    if not datetime_utc:
+        issues.append({
+            "field": "datetime_utc",
+            "reason": "missing"
+        })
+
+    open_price = candle.get("open")
+    high_price = candle.get("high")
+    low_price = candle.get("low")
+    close_price = candle.get("close")
+
+    prices = {
+        "open": open_price,
+        "high": high_price,
+        "low": low_price,
+        "close": close_price,
+    }
+
+    for field, value in prices.items():
+
+        if value is None:
+            issues.append({
+                "field": field,
+                "reason": "missing"
+            })
+
+        elif value <= 0:
+            issues.append({
+                "field": field,
+                "value": value,
+                "reason": "must_be_greater_than_zero"
+            })
+
+    # OHLC relationship
+    if all(
+        value is not None
+        for value in prices.values()
+    ):
+        if low_price > high_price:
+            issues.append({
+                "field": "low/high",
+                "reason": "low_greater_than_high"
+            })
+
+        if not (
+            low_price <= open_price <= high_price
+        ):
+            issues.append({
+                "field": "open",
+                "value": open_price,
+                "reason": "outside_low_high_range"
+            })
+
+        if not (
+            low_price <= close_price <= high_price
+        ):
+            issues.append({
+                "field": "close",
+                "value": close_price,
+                "reason": "outside_low_high_range"
+            })
+
+    return issues
+
+
+# ============================================================
+# Extract and validate OHLC candles
 # ============================================================
 
 def extract_candles(data):
+
     result = data["chart"]["result"][0]
 
-    timestamps = result["timestamp"]
+    timestamps = result.get("timestamp", [])
     quote = result["indicators"]["quote"][0]
 
     candles = []
+    invalid_candles = []
+
+    previous_timestamp = None
+    seen_timestamps = set()
 
     for i, timestamp in enumerate(timestamps):
 
@@ -96,36 +182,105 @@ def extract_candles(data):
         low_price = quote["low"][i]
         close_price = quote["close"][i]
 
-        if None in (
-            open_price,
-            high_price,
-            low_price,
-            close_price,
+        if timestamp is not None:
+            datetime_utc = datetime.fromtimestamp(
+                timestamp,
+                tz=timezone.utc
+            ).isoformat()
+        else:
+            datetime_utc = None
+
+        candle = {
+            "timestamp": timestamp,
+            "datetime_utc": datetime_utc,
+            "open": open_price,
+            "high": high_price,
+            "low": low_price,
+            "close": close_price,
+        }
+
+        issues = validate_candle(candle)
+
+        # Duplicate timestamp
+        if timestamp is not None:
+
+            if timestamp in seen_timestamps:
+                issues.append({
+                    "field": "timestamp",
+                    "value": timestamp,
+                    "reason": "duplicate"
+                })
+
+            seen_timestamps.add(timestamp)
+
+        # Chronological order
+        if (
+            timestamp is not None
+            and previous_timestamp is not None
+            and timestamp <= previous_timestamp
         ):
-            continue
+            issues.append({
+                "field": "timestamp",
+                "value": timestamp,
+                "reason": "not_chronological"
+            })
 
-        candles.append(
-            {
+        if timestamp is not None:
+            previous_timestamp = timestamp
+
+        if issues:
+
+            invalid_candles.append({
                 "timestamp": timestamp,
-                "datetime_utc": datetime.fromtimestamp(
-                    timestamp,
-                    tz=timezone.utc
-                ).isoformat(),
-                "open": open_price,
-                "high": high_price,
-                "low": low_price,
-                "close": close_price,
-            }
-        )
+                "datetime_utc": datetime_utc,
+                "issues": issues,
+            })
 
-    return candles
+        else:
+            candles.append(candle)
+
+    return candles, invalid_candles
+
+
+# ============================================================
+# Validate complete interval
+# ============================================================
+
+def validate_interval(
+    candles,
+    invalid_candles
+):
+
+    total_received = (
+        len(candles) +
+        len(invalid_candles)
+    )
+
+    if invalid_candles:
+        status = "warning"
+        valid = False
+    else:
+        status = "ok"
+        valid = True
+
+    return {
+        "status": status,
+        "valid": valid,
+        "total_received": total_received,
+        "valid_candles": len(candles),
+        "invalid_candles": len(invalid_candles),
+        "issues": invalid_candles,
+    }
 
 
 # ============================================================
 # Fetch one market
 # ============================================================
 
-def fetch_market(market_key, market_config):
+def fetch_market(
+    market_key,
+    market_config
+):
 
     symbol = market_config["symbol"]
     name = market_config["name"]
@@ -148,6 +303,7 @@ def fetch_market(market_key, market_config):
 
     for interval_name, interval in INTERVALS.items():
 
+        print()
         print(
             f"Yahoo Finance: "
             f"{symbol} / {interval}"
@@ -158,19 +314,43 @@ def fetch_market(market_key, market_config):
             interval
         )
 
-        candles = extract_candles(data)
+        candles, invalid_candles = extract_candles(
+            data
+        )
+
+        validation = validate_interval(
+            candles,
+            invalid_candles
+        )
 
         output["intervals"][interval_name] = {
             "interval": interval,
             "range": RANGE,
             "count": len(candles),
             "candles": candles,
+            "validation": validation,
         }
 
         print(
             f"{interval}: "
-            f"{len(candles)} Kerzen abgerufen"
+            f"{len(candles)} gültige Kerzen"
         )
+
+        if invalid_candles:
+
+            print(
+                f"{interval}: "
+                f"WARNUNG - "
+                f"{len(invalid_candles)} "
+                f"ungültige Kerze(n)"
+            )
+
+        else:
+
+            print(
+                f"{interval}: "
+                f"Validierung OK"
+            )
 
     output_path = (
         Path("data") /
@@ -212,15 +392,20 @@ def main():
     print("=" * 60)
     print("DataGW - Yahoo Finance Data Fetcher")
     print("=" * 60)
+
     print(
         f"Märkte: {len(MARKETS)}"
     )
+
     print(
-        f"Intervalle: {', '.join(INTERVALS.keys())}"
+        f"Intervalle: "
+        f"{', '.join(INTERVALS.keys())}"
     )
+
     print(
         f"Historie: {RANGE}"
     )
+
     print("=" * 60)
 
     successful = []
@@ -246,6 +431,7 @@ def main():
                 f"FEHLER bei "
                 f"{market_config['name']}:"
             )
+
             print(error)
 
             failed.append(
@@ -263,12 +449,14 @@ def main():
     )
 
     if failed:
+
         print(
             f"Fehler: "
             f"{', '.join(failed)}"
         )
 
     else:
+
         print(
             "Alle Märkte erfolgreich aktualisiert."
         )
@@ -276,6 +464,7 @@ def main():
     print("=" * 60)
 
     if failed:
+
         raise RuntimeError(
             "Mindestens ein Markt konnte "
             "nicht abgerufen werden."
