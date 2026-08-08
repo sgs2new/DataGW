@@ -26,6 +26,10 @@ jobs:
         run: |
           python scripts/test_history_capability.py
 
+      - name: Run Indicator Engine Integration Test
+        run: |
+          python scripts/test_indicator_engine_integration.py
+
       - name: Verify generated JSON files
         run: |
           echo "===== Generated market data ====="
