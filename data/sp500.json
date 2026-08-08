@@ -2,7 +2,7 @@
   "symbol": "^GSPC",
   "name": "S&P 500",
   "source": "Yahoo Finance",
-  "fetched_at_utc": "2026-08-08T18:22:58.176401+00:00",
+  "fetched_at_utc": "2026-08-08T18:46:40.020159+00:00",
   "intervals": {
     "1d": {
       "interval": "1d",
@@ -2017,7 +2017,15 @@
           "low": 7719.18994140625,
           "close": 7757.64013671875
         }
-      ]
+      ],
+      "validation": {
+        "status": "ok",
+        "valid": true,
+        "total_received": 251,
+        "valid_candles": 251,
+        "invalid_candles": 0,
+        "issues": []
+      }
     },
     "1wk": {
       "interval": "1wk",
@@ -2456,7 +2464,15 @@
           "low": 7719.18994140625,
           "close": 7757.64013671875
         }
-      ]
+      ],
+      "validation": {
+        "status": "ok",
+        "valid": true,
+        "total_received": 54,
+        "valid_candles": 54,
+        "invalid_candles": 0,
+        "issues": []
+      }
     },
     "1mo": {
       "interval": "1mo",
@@ -2567,7 +2583,15 @@
           "low": 7719.18994140625,
           "close": 7757.64013671875
         }
-      ]
+      ],
+      "validation": {
+        "status": "ok",
+        "valid": true,
+        "total_received": 13,
+        "valid_candles": 13,
+        "invalid_candles": 0,
+        "issues": []
+      }
     }
   }
 }

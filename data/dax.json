@@ -2,7 +2,7 @@
   "symbol": "^GDAXI",
   "name": "DAX",
   "source": "Yahoo Finance",
-  "fetched_at_utc": "2026-08-08T18:22:57.960377+00:00",
+  "fetched_at_utc": "2026-08-08T18:46:39.862717+00:00",
   "intervals": {
     "1d": {
       "interval": "1d",
@@ -2041,7 +2041,15 @@
           "low": 26223.640625,
           "close": 26319.44921875
         }
-      ]
+      ],
+      "validation": {
+        "status": "ok",
+        "valid": true,
+        "total_received": 254,
+        "valid_candles": 254,
+        "invalid_candles": 0,
+        "issues": []
+      }
     },
     "1wk": {
       "interval": "1wk",
@@ -2480,7 +2488,15 @@
           "low": 26223.640625,
           "close": 26319.44921875
         }
-      ]
+      ],
+      "validation": {
+        "status": "ok",
+        "valid": true,
+        "total_received": 54,
+        "valid_candles": 54,
+        "invalid_candles": 0,
+        "issues": []
+      }
     },
     "1mo": {
       "interval": "1mo",
@@ -2591,7 +2607,15 @@
           "low": 26223.640625,
           "close": 26319.44921875
         }
-      ]
+      ],
+      "validation": {
+        "status": "ok",
+        "valid": true,
+        "total_received": 13,
+        "valid_candles": 13,
+        "invalid_candles": 0,
+        "issues": []
+      }
     }
   }
 }
