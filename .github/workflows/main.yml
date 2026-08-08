@@ -1,11 +1,14 @@
-name: DataGW - Gold Data
+name: DataGW - Market Data
 
 on:
   workflow_dispatch:
 
 jobs:
-  update-gold:
+  update-markets:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout repository
@@ -15,21 +18,49 @@ jobs:
         run: |
           python scripts/yahoo_fetch.py
 
-      - name: Show generated JSON
+      - name: Verify generated JSON files
         run: |
-          echo "===== data/gold.json ====="
-          cat data/gold.json
+          echo "===== Generated market data ====="
 
-      - name: Commit updated gold.json
+          for file in \
+            data/gold.json \
+            data/silver.json \
+            data/brent.json \
+            data/dax.json \
+            data/sp500.json \
+            data/nasdaq100.json \
+            data/dowjones.json
+          do
+            echo ""
+            echo "===== $file ====="
+
+            if [ -f "$file" ]; then
+              echo "OK: Datei vorhanden"
+              python -m json.tool "$file" > /dev/null
+              echo "OK: JSON gültig"
+            else
+              echo "FEHLER: Datei fehlt!"
+              exit 1
+            fi
+          done
+
+      - name: Commit updated market data
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add data/gold.json
+          git add \
+            data/gold.json \
+            data/silver.json \
+            data/brent.json \
+            data/dax.json \
+            data/sp500.json \
+            data/nasdaq100.json \
+            data/dowjones.json
 
           if git diff --cached --quiet; then
-            echo "Keine Änderung an gold.json."
+            echo "Keine Änderungen an den Marktdaten."
           else
-            git commit -m "Update gold market data"
+            git commit -m "Update market data"
             git push
           fi
