@@ -3,7 +3,7 @@
   "symbol": "^DJI",
   "name": "Dow Jones",
   "source": "Yahoo Finance",
-  "fetched_at_utc": "2026-08-08T19:39:06.721785+00:00",
+  "fetched_at_utc": "2026-08-08T20:04:03.586010+00:00",
   "intervals": {
     "1d": {
       "interval": "1d",

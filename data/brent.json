@@ -3,7 +3,7 @@
   "symbol": "BZ=F",
   "name": "Brent",
   "source": "Yahoo Finance",
-  "fetched_at_utc": "2026-08-08T19:39:06.013762+00:00",
+  "fetched_at_utc": "2026-08-08T20:04:00.189538+00:00",
   "intervals": {
     "1d": {
       "interval": "1d",
