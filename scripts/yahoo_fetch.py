@@ -5,15 +5,22 @@ from pathlib import Path
 
 
 # ============================================================
-# DataGW - Yahoo Finance Market Data Fetcher
+# DataGW V2 - Yahoo Finance Market Data Fetcher
 # ============================================================
 
-RANGE = "1y"
-
 INTERVALS = {
-    "1d": "1d",
-    "1wk": "1wk",
-    "1mo": "1mo",
+    "1d": {
+        "interval": "1d",
+        "range": "2y",
+    },
+    "1wk": {
+        "interval": "1wk",
+        "range": "5y",
+    },
+    "1mo": {
+        "interval": "1mo",
+        "range": "10y",
+    },
 }
 
 
@@ -57,10 +64,11 @@ MARKETS = {
 # Yahoo Finance request
 # ============================================================
 
-def fetch_yahoo_data(symbol, interval):
+def fetch_yahoo_data(symbol, interval, range_value):
+
     url = (
         "https://query2.finance.yahoo.com/v8/finance/chart/"
-        f"{symbol}?interval={interval}&range={RANGE}"
+        f"{symbol}?interval={interval}&range={range_value}"
     )
 
     request = urllib.request.Request(
@@ -74,6 +82,7 @@ def fetch_yahoo_data(symbol, interval):
         request,
         timeout=30
     ) as response:
+
         return json.load(response)
 
 
@@ -82,18 +91,21 @@ def fetch_yahoo_data(symbol, interval):
 # ============================================================
 
 def validate_candle(candle):
+
     issues = []
 
     timestamp = candle.get("timestamp")
     datetime_utc = candle.get("datetime_utc")
 
     if timestamp is None:
+
         issues.append({
             "field": "timestamp",
             "reason": "missing"
         })
 
     if not datetime_utc:
+
         issues.append({
             "field": "datetime_utc",
             "reason": "missing"
@@ -114,12 +126,14 @@ def validate_candle(candle):
     for field, value in prices.items():
 
         if value is None:
+
             issues.append({
                 "field": field,
                 "reason": "missing"
             })
 
         elif value <= 0:
+
             issues.append({
                 "field": field,
                 "value": value,
@@ -131,7 +145,9 @@ def validate_candle(candle):
         value is not None
         for value in prices.values()
     ):
+
         if low_price > high_price:
+
             issues.append({
                 "field": "low/high",
                 "reason": "low_greater_than_high"
@@ -140,6 +156,7 @@ def validate_candle(candle):
         if not (
             low_price <= open_price <= high_price
         ):
+
             issues.append({
                 "field": "open",
                 "value": open_price,
@@ -149,6 +166,7 @@ def validate_candle(candle):
         if not (
             low_price <= close_price <= high_price
         ):
+
             issues.append({
                 "field": "close",
                 "value": close_price,
@@ -166,7 +184,11 @@ def extract_candles(data):
 
     result = data["chart"]["result"][0]
 
-    timestamps = result.get("timestamp", [])
+    timestamps = result.get(
+        "timestamp",
+        []
+    )
+
     quote = result["indicators"]["quote"][0]
 
     candles = []
@@ -183,11 +205,14 @@ def extract_candles(data):
         close_price = quote["close"][i]
 
         if timestamp is not None:
+
             datetime_utc = datetime.fromtimestamp(
                 timestamp,
                 tz=timezone.utc
             ).isoformat()
+
         else:
+
             datetime_utc = None
 
         candle = {
@@ -205,6 +230,7 @@ def extract_candles(data):
         if timestamp is not None:
 
             if timestamp in seen_timestamps:
+
                 issues.append({
                     "field": "timestamp",
                     "value": timestamp,
@@ -219,6 +245,7 @@ def extract_candles(data):
             and previous_timestamp is not None
             and timestamp <= previous_timestamp
         ):
+
             issues.append({
                 "field": "timestamp",
                 "value": timestamp,
@@ -226,6 +253,7 @@ def extract_candles(data):
             })
 
         if timestamp is not None:
+
             previous_timestamp = timestamp
 
         if issues:
@@ -237,6 +265,7 @@ def extract_candles(data):
             })
 
         else:
+
             candles.append(candle)
 
     return candles, invalid_candles
@@ -252,14 +281,17 @@ def validate_interval(
 ):
 
     total_received = (
-        len(candles) +
-        len(invalid_candles)
+        len(candles)
+        + len(invalid_candles)
     )
 
     if invalid_candles:
+
         status = "warning"
         valid = False
+
     else:
+
         status = "ok"
         valid = True
 
@@ -292,6 +324,7 @@ def fetch_market(
     print("=" * 60)
 
     output = {
+        "data_gateway_version": "2.0",
         "symbol": symbol,
         "name": name,
         "source": "Yahoo Finance",
@@ -301,17 +334,22 @@ def fetch_market(
         "intervals": {},
     }
 
-    for interval_name, interval in INTERVALS.items():
+    for interval_name, interval_config in INTERVALS.items():
+
+        interval = interval_config["interval"]
+        requested_range = interval_config["range"]
 
         print()
         print(
             f"Yahoo Finance: "
-            f"{symbol} / {interval}"
+            f"{symbol} / {interval} "
+            f"(requested range: {requested_range})"
         )
 
         data = fetch_yahoo_data(
             symbol,
-            interval
+            interval,
+            requested_range
         )
 
         candles, invalid_candles = extract_candles(
@@ -325,7 +363,7 @@ def fetch_market(
 
         output["intervals"][interval_name] = {
             "interval": interval,
-            "range": RANGE,
+            "requested_range": requested_range,
             "count": len(candles),
             "candles": candles,
             "validation": validation,
@@ -353,8 +391,8 @@ def fetch_market(
             )
 
     output_path = (
-        Path("data") /
-        f"{market_key}.json"
+        Path("data")
+        / f"{market_key}.json"
     )
 
     output_path.parent.mkdir(
@@ -390,7 +428,7 @@ def fetch_market(
 def main():
 
     print("=" * 60)
-    print("DataGW - Yahoo Finance Data Fetcher")
+    print("DataGW V2 - Yahoo Finance Data Fetcher")
     print("=" * 60)
 
     print(
@@ -398,13 +436,15 @@ def main():
     )
 
     print(
-        f"Intervalle: "
-        f"{', '.join(INTERVALS.keys())}"
+        "Intervalle:"
     )
 
-    print(
-        f"Historie: {RANGE}"
-    )
+    for interval_name, interval_config in INTERVALS.items():
+
+        print(
+            f"  {interval_name}: "
+            f"range={interval_config['range']}"
+        )
 
     print("=" * 60)
 
@@ -440,7 +480,7 @@ def main():
 
     print()
     print("=" * 60)
-    print("DataGW - Zusammenfassung")
+    print("DataGW V2 - Zusammenfassung")
     print("=" * 60)
 
     print(
