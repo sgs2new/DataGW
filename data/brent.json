@@ -3,7 +3,7 @@
   "symbol": "BZ=F",
   "name": "Brent",
   "source": "Yahoo Finance",
-  "fetched_at_utc": "2026-08-08T20:11:32.600402+00:00",
+  "fetched_at_utc": "2026-08-08T21:19:04.636098+00:00",
   "intervals": {
     "1d": {
       "interval": "1d",
@@ -4092,7 +4092,7 @@
     "1wk": {
       "interval": "1wk",
       "requested_range": "5y",
-      "count": 262,
+      "count": 261,
       "candles": [
         {
           "timestamp": 1628481600,
@@ -6181,29 +6181,38 @@
           "high": 86.33000183105469,
           "low": 78.12999725341797,
           "close": 83.55000305175781
-        },
-        {
-          "timestamp": 1786136398,
-          "datetime_utc": "2026-08-07T20:59:58+00:00",
-          "open": 83.33000183105469,
-          "high": 84.38999938964844,
-          "low": 81.5,
-          "close": 83.55000305175781
         }
       ],
       "validation": {
-        "status": "ok",
-        "valid": true,
+        "status": "warning",
+        "valid": false,
         "total_received": 262,
-        "valid_candles": 262,
-        "invalid_candles": 0,
-        "issues": []
+        "valid_candles": 261,
+        "invalid_candles": 1,
+        "issues": [
+          {
+            "timestamp": 1786136398,
+            "datetime_utc": "2026-08-07T20:59:58+00:00",
+            "issues": [
+              {
+                "field": "open",
+                "value": 0.0,
+                "reason": "must_be_greater_than_zero"
+              },
+              {
+                "field": "open",
+                "value": 0.0,
+                "reason": "outside_low_high_range"
+              }
+            ]
+          }
+        ]
       }
     },
     "1mo": {
       "interval": "1mo",
       "requested_range": "10y",
-      "count": 104,
+      "count": 103,
       "candles": [
         {
           "timestamp": 1472702400,
@@ -7028,23 +7037,32 @@
           "high": 86.33000183105469,
           "low": 78.12999725341797,
           "close": 83.55000305175781
-        },
-        {
-          "timestamp": 1786136398,
-          "datetime_utc": "2026-08-07T20:59:58+00:00",
-          "open": 83.33000183105469,
-          "high": 84.38999938964844,
-          "low": 81.5,
-          "close": 83.55000305175781
         }
       ],
       "validation": {
-        "status": "ok",
-        "valid": true,
+        "status": "warning",
+        "valid": false,
         "total_received": 104,
-        "valid_candles": 104,
-        "invalid_candles": 0,
-        "issues": []
+        "valid_candles": 103,
+        "invalid_candles": 1,
+        "issues": [
+          {
+            "timestamp": 1786136398,
+            "datetime_utc": "2026-08-07T20:59:58+00:00",
+            "issues": [
+              {
+                "field": "open",
+                "value": 0.0,
+                "reason": "must_be_greater_than_zero"
+              },
+              {
+                "field": "open",
+                "value": 0.0,
+                "reason": "outside_low_high_range"
+              }
+            ]
+          }
+        ]
       }
     }
   }
