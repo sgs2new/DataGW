@@ -5,18 +5,24 @@ from pathlib import Path
 
 
 SYMBOL = "GC=F"
-INTERVAL = "1d"
-RANGE = "5d"
+NAME = "Gold"
+RANGE = "1y"
 
-URL = (
-    f"https://query2.finance.yahoo.com/v8/finance/chart/"
-    f"{SYMBOL}?interval={INTERVAL}&range={RANGE}"
-)
+INTERVALS = {
+    "1d": "1d",
+    "1wk": "1wk",
+    "1mo": "1mo",
+}
 
 
-def fetch_yahoo_data():
+def fetch_yahoo_data(interval):
+    url = (
+        f"https://query2.finance.yahoo.com/v8/finance/chart/"
+        f"{SYMBOL}?interval={interval}&range={RANGE}"
+    )
+
     request = urllib.request.Request(
-        URL,
+        url,
         headers={"User-Agent": "Mozilla/5.0"}
     )
 
@@ -24,61 +30,93 @@ def fetch_yahoo_data():
         return json.load(response)
 
 
-def main():
-    data = fetch_yahoo_data()
-
+def extract_candles(data):
     result = data["chart"]["result"][0]
-    meta = result["meta"]
 
     timestamps = result["timestamp"]
     quote = result["indicators"]["quote"][0]
 
-    # Letzte vorhandene vollständige OHLC-Kerze suchen
-    candle = None
+    candles = []
 
-    for i in range(len(timestamps) - 1, -1, -1):
-        values = {
-            "timestamp": timestamps[i],
-            "open": quote["open"][i],
-            "high": quote["high"][i],
-            "low": quote["low"][i],
-            "close": quote["close"][i],
-        }
+    for i, timestamp in enumerate(timestamps):
+        open_price = quote["open"][i]
+        high_price = quote["high"][i]
+        low_price = quote["low"][i]
+        close_price = quote["close"][i]
 
-        if all(value is not None for value in values.values()):
-            candle = values
-            break
+        if None in (
+            open_price,
+            high_price,
+            low_price,
+            close_price,
+        ):
+            continue
 
-    if candle is None:
-        raise RuntimeError("Keine vollständige OHLC-Kerze gefunden.")
+        candles.append({
+            "timestamp": timestamp,
+            "datetime_utc": datetime.fromtimestamp(
+                timestamp,
+                tz=timezone.utc
+            ).isoformat(),
+            "open": open_price,
+            "high": high_price,
+            "low": low_price,
+            "close": close_price
+        })
 
-    timestamp = candle["timestamp"]
+    return candles
+
+
+def main():
 
     output = {
-        "symbol": meta.get("symbol", SYMBOL),
-        "interval": INTERVAL,
-        "timestamp": timestamp,
-        "datetime_utc": datetime.fromtimestamp(
-            timestamp, tz=timezone.utc
-        ).isoformat(),
-        "open": candle["open"],
-        "high": candle["high"],
-        "low": candle["low"],
-        "close": candle["close"],
+        "symbol": SYMBOL,
+        "name": NAME,
         "source": "Yahoo Finance",
-        "source_endpoint": URL,
-        "fetched_at_utc": datetime.now(timezone.utc).isoformat(),
+        "fetched_at_utc": datetime.now(
+            timezone.utc
+        ).isoformat(),
+        "intervals": {}
     }
 
+    for name, interval in INTERVALS.items():
+
+        print(f"Yahoo Finance: {SYMBOL} / {interval}")
+
+        data = fetch_yahoo_data(interval)
+        candles = extract_candles(data)
+
+        output["intervals"][name] = {
+            "interval": interval,
+            "range": RANGE,
+            "count": len(candles),
+            "candles": candles
+        }
+
+        print(
+            f"{interval}: {len(candles)} Kerzen abgerufen"
+        )
+
     output_path = Path("data/gold.json")
-    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.parent.mkdir(
+        parents=True,
+        exist_ok=True
+    )
 
-    with output_path.open("w", encoding="utf-8") as file:
-        json.dump(output, file, indent=2, ensure_ascii=False)
+    with output_path.open(
+        "w",
+        encoding="utf-8"
+    ) as file:
+        json.dump(
+            output,
+            file,
+            indent=2,
+            ensure_ascii=False
+        )
 
+    print()
     print("Gold-Daten erfolgreich geschrieben:")
     print(output_path)
-    print(json.dumps(output, indent=2, ensure_ascii=False))
 
 
 if __name__ == "__main__":
