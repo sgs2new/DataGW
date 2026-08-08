@@ -18,6 +18,10 @@ jobs:
         run: |
           python scripts/yahoo_fetch.py
 
+      - name: Run DataGW V2 Consumer Test
+        run: |
+          python scripts/test_datagw_consumer.py
+
       - name: Verify generated JSON files
         run: |
           echo "===== Generated market data ====="
