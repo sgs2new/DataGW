@@ -1,63 +1,35 @@
-name: DataGW - Yahoo Finance Test
+name: DataGW - Gold Data
 
 on:
   workflow_dispatch:
 
 jobs:
-  yahoo-test:
+  update-gold:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Show runner information
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run Yahoo Finance fetcher
         run: |
-          echo "GitHub Runner ist gestartet."
-          python --version
+          python scripts/yahoo_fetch.py
 
-      - name: Test Yahoo Finance - GC=F
+      - name: Show generated JSON
         run: |
-          python - <<'PY'
-          import json
-          import urllib.request
+          echo "===== data/gold.json ====="
+          cat data/gold.json
 
-          url = "https://query2.finance.yahoo.com/v8/finance/chart/GC=F?interval=1d&range=5d"
+      - name: Commit updated gold.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          print("Yahoo-Endpoint:")
-          print(url)
-          print()
+          git add data/gold.json
 
-          request = urllib.request.Request(
-              url,
-              headers={"User-Agent": "Mozilla/5.0"}
-          )
-
-          with urllib.request.urlopen(request, timeout=30) as response:
-              data = json.load(response)
-
-          result = data["chart"]["result"][0]
-          meta = result["meta"]
-          timestamps = result["timestamp"]
-          quote = result["indicators"]["quote"][0]
-
-          print("Yahoo Finance antwortet erfolgreich.")
-          print("Symbol:", meta.get("symbol"))
-          print("Anzahl Kerzen:", len(timestamps))
-          print()
-
-          print("Letzte Kerze:")
-          print("Timestamp:", timestamps[-1])
-          print("Open:     ", quote["open"][-1])
-          print("High:     ", quote["high"][-1])
-          print("Low:      ", quote["low"][-1])
-          print("Close:    ", quote["close"][-1])
-
-          if not all([
-              quote["open"][-1],
-              quote["high"][-1],
-              quote["low"][-1],
-              quote["close"][-1]
-          ]):
-              raise RuntimeError("OHLC-Daten sind unvollständig.")
-
-          print()
-          print("TEST ERFOLGREICH: Yahoo GC=F liefert OHLC-Daten.")
-          PY
+          if git diff --cached --quiet; then
+            echo "Keine Änderung an gold.json."
+          else
+            git commit -m "Update gold market data"
+            git push
+          fi
