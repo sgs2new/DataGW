@@ -3,12 +3,12 @@
   "symbol": "^GDAXI",
   "name": "DAX",
   "source": "Yahoo Finance",
-  "fetched_at_utc": "2026-08-14T22:01:33.282184+00:00",
+  "fetched_at_utc": "2026-08-15T21:57:40.176072+00:00",
   "intervals": {
     "1d": {
       "interval": "1d",
       "requested_range": "2y",
-      "count": 506,
+      "count": 507,
       "candles": [
         {
           "timestamp": 1723618800,
@@ -4057,26 +4057,23 @@
           "high": 26489.779296875,
           "low": 26285.23046875,
           "close": 26299.740234375
+        },
+        {
+          "timestamp": 1786690800,
+          "datetime_utc": "2026-08-14T07:00:00+00:00",
+          "open": 26445.990234375,
+          "high": 26541.33984375,
+          "low": 26404.94921875,
+          "close": 26440.310546875
         }
       ],
       "validation": {
-        "status": "warning",
-        "valid": false,
+        "status": "ok",
+        "valid": true,
         "total_received": 507,
-        "valid_candles": 506,
-        "invalid_candles": 1,
-        "issues": [
-          {
-            "timestamp": 1786690800,
-            "datetime_utc": "2026-08-14T07:00:00+00:00",
-            "issues": [
-              {
-                "field": "close",
-                "reason": "missing"
-              }
-            ]
-          }
-        ]
+        "valid_candles": 507,
+        "invalid_candles": 0,
+        "issues": []
       }
     },
     "1wk": {
@@ -6170,7 +6167,7 @@
           "open": 26360.439453125,
           "high": 26573.5,
           "low": 26245.5703125,
-          "close": 26299.740234375
+          "close": 26440.310546875
         },
         {
           "timestamp": 1786723200,
@@ -7433,7 +7430,7 @@
           "open": 25083.240234375,
           "high": 26573.5,
           "low": 24043.51953125,
-          "close": 26299.740234375
+          "close": 26440.310546875
         },
         {
           "timestamp": 1786723200,
