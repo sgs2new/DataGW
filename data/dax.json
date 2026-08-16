@@ -3,7 +3,7 @@
   "symbol": "^GDAXI",
   "name": "DAX",
   "source": "Yahoo Finance",
-  "fetched_at_utc": "2026-08-15T21:57:40.176072+00:00",
+  "fetched_at_utc": "2026-08-16T21:56:39.704151+00:00",
   "intervals": {
     "1d": {
       "interval": "1d",

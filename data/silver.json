@@ -3,21 +3,13 @@
   "symbol": "SI=F",
   "name": "Silver",
   "source": "Yahoo Finance",
-  "fetched_at_utc": "2026-08-15T21:57:39.758402+00:00",
+  "fetched_at_utc": "2026-08-16T21:56:39.361694+00:00",
   "intervals": {
     "1d": {
       "interval": "1d",
       "requested_range": "2y",
-      "count": 503,
+      "count": 502,
       "candles": [
-        {
-          "timestamp": 1723694400,
-          "datetime_utc": "2024-08-15T04:00:00+00:00",
-          "open": 28.145000457763672,
-          "high": 28.341999053955078,
-          "low": 28.145000457763672,
-          "close": 28.341999053955078
-        },
         {
           "timestamp": 1723780800,
           "datetime_utc": "2024-08-16T04:00:00+00:00",
@@ -4029,17 +4021,17 @@
         {
           "timestamp": 1786680000,
           "datetime_utc": "2026-08-14T04:00:00+00:00",
-          "open": 64.98799896240234,
-          "high": 64.98799896240234,
-          "low": 64.98799896240234,
-          "close": 64.98799896240234
+          "open": 64.62999725341797,
+          "high": 65.88500213623047,
+          "low": 63.64500045776367,
+          "close": 65.10800170898438
         }
       ],
       "validation": {
         "status": "warning",
         "valid": false,
-        "total_received": 505,
-        "valid_candles": 503,
+        "total_received": 504,
+        "valid_candles": 502,
         "invalid_candles": 2,
         "issues": [
           {
