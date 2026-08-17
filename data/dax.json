@@ -3,37 +3,13 @@
   "symbol": "^GDAXI",
   "name": "DAX",
   "source": "Yahoo Finance",
-  "fetched_at_utc": "2026-08-16T21:56:39.704151+00:00",
+  "fetched_at_utc": "2026-08-17T22:02:57.225452+00:00",
   "intervals": {
     "1d": {
       "interval": "1d",
       "requested_range": "2y",
-      "count": 507,
+      "count": 504,
       "candles": [
-        {
-          "timestamp": 1723618800,
-          "datetime_utc": "2024-08-14T07:00:00+00:00",
-          "open": 17882.1796875,
-          "high": 17921.990234375,
-          "low": 17827.080078125,
-          "close": 17885.599609375
-        },
-        {
-          "timestamp": 1723705200,
-          "datetime_utc": "2024-08-15T07:00:00+00:00",
-          "open": 17977.810546875,
-          "high": 18198.08984375,
-          "low": 17909.740234375,
-          "close": 18183.240234375
-        },
-        {
-          "timestamp": 1723791600,
-          "datetime_utc": "2024-08-16T07:00:00+00:00",
-          "open": 18236.01953125,
-          "high": 18344.220703125,
-          "low": 18226.599609375,
-          "close": 18322.400390625
-        },
         {
           "timestamp": 1724050800,
           "datetime_utc": "2024-08-19T07:00:00+00:00",
@@ -4068,12 +4044,23 @@
         }
       ],
       "validation": {
-        "status": "ok",
-        "valid": true,
-        "total_received": 507,
-        "valid_candles": 507,
-        "invalid_candles": 0,
-        "issues": []
+        "status": "warning",
+        "valid": false,
+        "total_received": 505,
+        "valid_candles": 504,
+        "invalid_candles": 1,
+        "issues": [
+          {
+            "timestamp": 1786950000,
+            "datetime_utc": "2026-08-17T07:00:00+00:00",
+            "issues": [
+              {
+                "field": "close",
+                "reason": "missing"
+              }
+            ]
+          }
+        ]
       }
     },
     "1wk": {
@@ -4084,7 +4071,7 @@
         {
           "timestamp": 1629064800,
           "datetime_utc": "2021-08-15T22:00:00+00:00",
-          "open": 15875.7001953125,
+          "open": 15872.1201171875,
           "high": 15969.849609375,
           "low": 15621.98046875,
           "close": 15808.0400390625
@@ -6170,21 +6157,32 @@
           "close": 26440.310546875
         },
         {
-          "timestamp": 1786723200,
-          "datetime_utc": "2026-08-14T16:00:00+00:00",
-          "open": 26445.990234375,
-          "high": 26541.33984375,
-          "low": 26404.94921875,
-          "close": 26440.310546875
+          "timestamp": 1786982400,
+          "datetime_utc": "2026-08-17T16:00:00+00:00",
+          "open": 26490.30078125,
+          "high": 26493.5,
+          "low": 26338.609375,
+          "close": 26338.609375
         }
       ],
       "validation": {
-        "status": "ok",
-        "valid": true,
-        "total_received": 262,
+        "status": "warning",
+        "valid": false,
+        "total_received": 263,
         "valid_candles": 262,
-        "invalid_candles": 0,
-        "issues": []
+        "invalid_candles": 1,
+        "issues": [
+          {
+            "timestamp": 1786917600,
+            "datetime_utc": "2026-08-16T22:00:00+00:00",
+            "issues": [
+              {
+                "field": "close",
+                "reason": "missing"
+              }
+            ]
+          }
+        ]
       }
     },
     "1mo": {
@@ -7433,12 +7431,12 @@
           "close": 26440.310546875
         },
         {
-          "timestamp": 1786723200,
-          "datetime_utc": "2026-08-14T16:00:00+00:00",
-          "open": 26445.990234375,
-          "high": 26541.33984375,
-          "low": 26404.94921875,
-          "close": 26440.310546875
+          "timestamp": 1786982400,
+          "datetime_utc": "2026-08-17T16:00:00+00:00",
+          "open": 26490.30078125,
+          "high": 26493.5,
+          "low": 26338.609375,
+          "close": 26338.609375
         }
       ],
       "validation": {
