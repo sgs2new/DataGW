@@ -3,12 +3,12 @@
   "symbol": "GC=F",
   "name": "Gold",
   "source": "Yahoo Finance",
-  "fetched_at_utc": "2026-08-17T22:02:55.709454+00:00",
+  "fetched_at_utc": "2026-08-18T22:00:28.784317+00:00",
   "intervals": {
     "1d": {
       "interval": "1d",
       "requested_range": "2y",
-      "count": 502,
+      "count": 503,
       "candles": [
         {
           "timestamp": 1724040000,
@@ -4021,17 +4021,25 @@
         {
           "timestamp": 1786939200,
           "datetime_utc": "2026-08-17T04:00:00+00:00",
-          "open": 4440.0,
-          "high": 4486.5,
-          "low": 4422.2998046875,
-          "close": 4473.10009765625
+          "open": 4394.7998046875,
+          "high": 4428.5,
+          "low": 4386.5,
+          "close": 4417.7998046875
+        },
+        {
+          "timestamp": 1787025600,
+          "datetime_utc": "2026-08-18T04:00:00+00:00",
+          "open": 4473.39990234375,
+          "high": 4493.10009765625,
+          "low": 4385.5,
+          "close": 4389.5
         }
       ],
       "validation": {
         "status": "warning",
         "valid": false,
-        "total_received": 504,
-        "valid_candles": 502,
+        "total_received": 505,
+        "valid_candles": 503,
         "invalid_candles": 2,
         "issues": [
           {
@@ -4084,13 +4092,13 @@
     "1wk": {
       "interval": "1wk",
       "requested_range": "5y",
-      "count": 262,
+      "count": 263,
       "candles": [
         {
           "timestamp": 1629086400,
           "datetime_utc": "2021-08-16T04:00:00+00:00",
-          "open": 1787.699951171875,
-          "high": 1794.199951171875,
+          "open": 1787.800048828125,
+          "high": 1791.5,
           "low": 1775.5,
           "close": 1781.0
         },
@@ -6177,17 +6185,25 @@
         {
           "timestamp": 1786939200,
           "datetime_utc": "2026-08-17T04:00:00+00:00",
-          "open": 4440.0,
-          "high": 4486.5,
-          "low": 4422.2998046875,
-          "close": 4473.10009765625
+          "open": 4394.7998046875,
+          "high": 4428.5,
+          "low": 4386.5,
+          "close": 4417.7998046875
+        },
+        {
+          "timestamp": 1787086799,
+          "datetime_utc": "2026-08-18T20:59:59+00:00",
+          "open": 4473.39990234375,
+          "high": 4493.10009765625,
+          "low": 4385.5,
+          "close": 4389.5
         }
       ],
       "validation": {
         "status": "ok",
         "valid": true,
-        "total_received": 262,
-        "valid_candles": 262,
+        "total_received": 263,
+        "valid_candles": 263,
         "invalid_candles": 0,
         "issues": []
       }
@@ -8294,12 +8310,12 @@
           "close": 4380.39990234375
         },
         {
-          "timestamp": 1787000396,
-          "datetime_utc": "2026-08-17T20:59:56+00:00",
-          "open": 4440.0,
-          "high": 4486.5,
-          "low": 4422.2998046875,
-          "close": 4473.10009765625
+          "timestamp": 1787086799,
+          "datetime_utc": "2026-08-18T20:59:59+00:00",
+          "open": 4473.39990234375,
+          "high": 4493.10009765625,
+          "low": 4385.5,
+          "close": 4389.5
         }
       ],
       "validation": {

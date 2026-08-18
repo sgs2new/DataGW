@@ -3,12 +3,12 @@
   "symbol": "BZ=F",
   "name": "Brent",
   "source": "Yahoo Finance",
-  "fetched_at_utc": "2026-08-17T22:02:56.566257+00:00",
+  "fetched_at_utc": "2026-08-18T22:00:30.510670+00:00",
   "intervals": {
     "1d": {
       "interval": "1d",
       "requested_range": "2y",
-      "count": 502,
+      "count": 503,
       "candles": [
         {
           "timestamp": 1724040000,
@@ -4024,14 +4024,22 @@
           "open": 88.72000122070312,
           "high": 91.19000244140625,
           "low": 88.02999877929688,
-          "close": 91.0999984741211
+          "close": 90.87000274658203
+        },
+        {
+          "timestamp": 1787025600,
+          "datetime_utc": "2026-08-18T04:00:00+00:00",
+          "open": 91.31999969482422,
+          "high": 92.01000213623047,
+          "low": 90.62000274658203,
+          "close": 91.2699966430664
         }
       ],
       "validation": {
         "status": "warning",
         "valid": false,
-        "total_received": 504,
-        "valid_candles": 502,
+        "total_received": 505,
+        "valid_candles": 503,
         "invalid_candles": 2,
         "issues": [
           {
@@ -4084,12 +4092,12 @@
     "1wk": {
       "interval": "1wk",
       "requested_range": "5y",
-      "count": 262,
+      "count": 263,
       "candles": [
         {
           "timestamp": 1629086400,
           "datetime_utc": "2021-08-16T04:00:00+00:00",
-          "open": 69.6500015258789,
+          "open": 69.01000213623047,
           "high": 70.04000091552734,
           "low": 64.80000305175781,
           "close": 65.18000030517578
@@ -6180,14 +6188,22 @@
           "open": 88.72000122070312,
           "high": 91.19000244140625,
           "low": 88.02999877929688,
-          "close": 91.0999984741211
+          "close": 90.87000274658203
+        },
+        {
+          "timestamp": 1787086779,
+          "datetime_utc": "2026-08-18T20:59:39+00:00",
+          "open": 91.31999969482422,
+          "high": 92.01000213623047,
+          "low": 90.62000274658203,
+          "close": 91.2699966430664
         }
       ],
       "validation": {
         "status": "ok",
         "valid": true,
-        "total_received": 262,
-        "valid_candles": 262,
+        "total_received": 263,
+        "valid_candles": 263,
         "invalid_candles": 0,
         "issues": []
       }
@@ -7766,12 +7782,12 @@
           "close": 88.5199966430664
         },
         {
-          "timestamp": 1787000380,
-          "datetime_utc": "2026-08-17T20:59:40+00:00",
-          "open": 88.72000122070312,
-          "high": 91.19000244140625,
-          "low": 88.02999877929688,
-          "close": 91.0999984741211
+          "timestamp": 1787086779,
+          "datetime_utc": "2026-08-18T20:59:39+00:00",
+          "open": 91.31999969482422,
+          "high": 92.01000213623047,
+          "low": 90.62000274658203,
+          "close": 91.2699966430664
         }
       ],
       "validation": {
