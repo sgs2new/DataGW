@@ -3,21 +3,13 @@
   "symbol": "^GSPC",
   "name": "S&P 500",
   "source": "Yahoo Finance",
-  "fetched_at_utc": "2026-08-20T22:55:23.035851+00:00",
+  "fetched_at_utc": "2026-08-21T22:02:28.760740+00:00",
   "intervals": {
     "1d": {
       "interval": "1d",
       "requested_range": "2y",
-      "count": 498,
+      "count": 501,
       "candles": [
-        {
-          "timestamp": 1724247000,
-          "datetime_utc": "2024-08-21T13:30:00+00:00",
-          "open": 5603.08984375,
-          "high": 5632.68017578125,
-          "low": 5591.56982421875,
-          "close": 5620.85009765625
-        },
         {
           "timestamp": 1724333400,
           "datetime_utc": "2024-08-22T13:30:00+00:00",
@@ -3835,6 +3827,22 @@
           "close": 7443.27978515625
         },
         {
+          "timestamp": 1784640600,
+          "datetime_utc": "2026-07-21T13:30:00+00:00",
+          "open": 7489.9501953125,
+          "high": 7515.31005859375,
+          "low": 7467.85986328125,
+          "close": 7509.2001953125
+        },
+        {
+          "timestamp": 1784727000,
+          "datetime_utc": "2026-07-22T13:30:00+00:00",
+          "open": 7497.47021484375,
+          "high": 7525.93994140625,
+          "low": 7485.85009765625,
+          "close": 7498.9599609375
+        },
+        {
           "timestamp": 1784813400,
           "datetime_utc": "2026-07-23T13:30:00+00:00",
           "open": 7418.2900390625,
@@ -3881,6 +3889,14 @@
           "high": 7448.75,
           "low": 7370.97998046875,
           "close": 7437.6298828125
+        },
+        {
+          "timestamp": 1785504600,
+          "datetime_utc": "2026-07-31T13:30:00+00:00",
+          "open": 7462.1298828125,
+          "high": 7512.0400390625,
+          "low": 7399.830078125,
+          "close": 7489.72021484375
         },
         {
           "timestamp": 1785763800,
@@ -3993,97 +4009,30 @@
           "high": 7699.9599609375,
           "low": 7639.009765625,
           "close": 7641.16015625
+        },
+        {
+          "timestamp": 1787319000,
+          "datetime_utc": "2026-08-21T13:30:00+00:00",
+          "open": 7665.68017578125,
+          "high": 7697.10986328125,
+          "low": 7660.06005859375,
+          "close": 7674.3701171875
         }
       ],
       "validation": {
-        "status": "warning",
-        "valid": false,
+        "status": "ok",
+        "valid": true,
         "total_received": 501,
-        "valid_candles": 498,
-        "invalid_candles": 3,
-        "issues": [
-          {
-            "timestamp": 1784640600,
-            "datetime_utc": "2026-07-21T13:30:00+00:00",
-            "issues": [
-              {
-                "field": "open",
-                "reason": "missing"
-              },
-              {
-                "field": "high",
-                "reason": "missing"
-              },
-              {
-                "field": "low",
-                "reason": "missing"
-              },
-              {
-                "field": "close",
-                "reason": "missing"
-              }
-            ]
-          },
-          {
-            "timestamp": 1784727000,
-            "datetime_utc": "2026-07-22T13:30:00+00:00",
-            "issues": [
-              {
-                "field": "open",
-                "reason": "missing"
-              },
-              {
-                "field": "high",
-                "reason": "missing"
-              },
-              {
-                "field": "low",
-                "reason": "missing"
-              },
-              {
-                "field": "close",
-                "reason": "missing"
-              }
-            ]
-          },
-          {
-            "timestamp": 1785504600,
-            "datetime_utc": "2026-07-31T13:30:00+00:00",
-            "issues": [
-              {
-                "field": "open",
-                "reason": "missing"
-              },
-              {
-                "field": "high",
-                "reason": "missing"
-              },
-              {
-                "field": "low",
-                "reason": "missing"
-              },
-              {
-                "field": "close",
-                "reason": "missing"
-              }
-            ]
-          }
-        ]
+        "valid_candles": 501,
+        "invalid_candles": 0,
+        "issues": []
       }
     },
     "1wk": {
       "interval": "1wk",
       "requested_range": "5y",
-      "count": 263,
+      "count": 262,
       "candles": [
-        {
-          "timestamp": 1629086400,
-          "datetime_utc": "2021-08-16T04:00:00+00:00",
-          "open": 4410.56005859375,
-          "high": 4444.35009765625,
-          "low": 4406.7998046875,
-          "close": 4441.669921875
-        },
         {
           "timestamp": 1629691200,
           "datetime_utc": "2021-08-23T04:00:00+00:00",
@@ -6136,7 +6085,7 @@
           "timestamp": 1784520000,
           "datetime_utc": "2026-07-20T04:00:00+00:00",
           "open": 7489.18017578125,
-          "high": 7513.22998046875,
+          "high": 7525.93994140625,
           "low": 7376.0,
           "close": 7411.97998046875
         },
@@ -6144,9 +6093,9 @@
           "timestamp": 1785124800,
           "datetime_utc": "2026-07-27T04:00:00+00:00",
           "open": 7464.2001953125,
-          "high": 7480.56982421875,
+          "high": 7512.0400390625,
           "low": 7313.919921875,
-          "close": 7437.6298828125
+          "close": 7489.72021484375
         },
         {
           "timestamp": 1785729600,
@@ -6169,23 +6118,23 @@
           "datetime_utc": "2026-08-17T04:00:00+00:00",
           "open": 7790.68017578125,
           "high": 7790.68017578125,
-          "low": 7688.6298828125,
-          "close": 7707.97998046875
-        },
-        {
-          "timestamp": 1787260233,
-          "datetime_utc": "2026-08-20T21:10:33+00:00",
-          "open": 7690.490234375,
-          "high": 7699.9599609375,
           "low": 7639.009765625,
           "close": 7641.16015625
+        },
+        {
+          "timestamp": 1787344912,
+          "datetime_utc": "2026-08-21T20:41:52+00:00",
+          "open": 7665.68017578125,
+          "high": 7697.10986328125,
+          "low": 7660.06005859375,
+          "close": 7674.3701171875
         }
       ],
       "validation": {
         "status": "ok",
         "valid": true,
-        "total_received": 263,
-        "valid_candles": 263,
+        "total_received": 262,
+        "valid_candles": 262,
         "invalid_candles": 0,
         "issues": []
       }
@@ -7529,15 +7478,15 @@
           "open": 7582.2900390625,
           "high": 7816.7001953125,
           "low": 7237.85009765625,
-          "close": 7707.97998046875
+          "close": 7641.16015625
         },
         {
-          "timestamp": 1787260233,
-          "datetime_utc": "2026-08-20T21:10:33+00:00",
-          "open": 7690.490234375,
-          "high": 7699.9599609375,
-          "low": 7639.009765625,
-          "close": 7641.16015625
+          "timestamp": 1787344912,
+          "datetime_utc": "2026-08-21T20:41:52+00:00",
+          "open": 7665.68017578125,
+          "high": 7697.10986328125,
+          "low": 7660.06005859375,
+          "close": 7674.3701171875
         }
       ],
       "validation": {
